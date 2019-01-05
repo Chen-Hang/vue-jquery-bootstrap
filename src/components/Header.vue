@@ -1,9 +1,10 @@
 <template>
+
     <div class="header">
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">菜鸟教程</a>
+                    <a class="navbar-brand" href="#">admin</a>
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
@@ -28,11 +29,27 @@
                 </div>
 
                 <div class="col-sm-offset-10 loginOut">
-                    <h5>欢迎回来，{{userInfo.name}}</h5>
-                    <button class="btn btn-primary btn-sm">退出登录</button>
+                    <h5>欢迎回来，{{msg.name}}</h5>
+                    <button class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#myModal">退出登录</button>
                 </div>
             </div>
         </nav>
+        <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-left" id="myModalLabel">LoginOut</h4>
+            </div>
+            <div class="modal-body">是否退出登录</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" @click="loginOut">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
     </div>
 </template>
 
@@ -44,13 +61,25 @@ export default {
             userInfo:""
         }
     },
-    mounted () {
-        this.$axios.get("/admin/adminInfo").then(res=>{
-            console.log(res);
-            this.userInfo=res.data.data
+    // created() {
+    //     this.$axios.get("/admin/adminInfo").then(res=>{
+    //         console.log(res);
+    //         this.userInfo=res.data.data
             
-        })
-    }
+    //     })
+    // },
+    methods: {
+        loginOut(){
+            this.$axios.post("/login/logout").then(res=>{
+                console.log(res);
+                if(res.data.status_code==200){
+                     router.push({name:'Login'})
+                }
+                
+            })
+        }
+    },
+    props:["msg"]
 }
 </script>
 

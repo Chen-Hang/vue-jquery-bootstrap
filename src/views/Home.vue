@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <Header></Header>
+        <Header :msg="msgs"></Header>
     </div>
 </template>
 
@@ -10,8 +10,15 @@ export default {
     name:"Home",
     data(){
         return{
-
+            msgs:""
         }
+    },
+    created () {
+        this.$axios.get("/admin/adminInfo").then(res=>{
+            console.log(res);
+            this.msgs=res.data.data
+            
+        })  
     },
     components:{
         Header

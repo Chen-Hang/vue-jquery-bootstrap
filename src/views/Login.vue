@@ -50,7 +50,7 @@ export default {
                 this.alertMessage=res.data.message;
                 if(res.data.status_code==200){
                       //登陆成功调到首页
-                        this.isShowSuss=true;
+                      this.isShowSuss=true;
                       localStorage.setItem("token",res.data.data)
                       setTimeout(()=>{
                           _this.$data.isShowSuss=false  //消息提示1.5秒后关闭                 
